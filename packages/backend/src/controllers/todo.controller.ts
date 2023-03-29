@@ -14,30 +14,30 @@ import {
 export class TodoController {
   constructor(private todoService: TodoService) {}
 
-  async getUncompletedTodos(req: IAuthWithoutBodyRequest): Promise<ITodo[]> {
-    const todos = await this.todoService.getUncompleted(req.user);
+  getUncompletedTodos(req: IAuthWithoutBodyRequest): Promise<ITodo[]> {
+    const todos = this.todoService.getUncompleted(req.user);
     return todos;
   }
 
-  async getCompletedTodos(req: IAuthWithoutBodyRequest): Promise<ITodo[]> {
-    const todos = await this.todoService.getCompleted(req.user);
+  getCompletedTodos(req: IAuthWithoutBodyRequest): Promise<ITodo[]> {
+    const todos = this.todoService.getCompleted(req.user);
     return todos;
   }
 
-  async getTodo(req: IAuthWithoutBodyRequest): Promise<ITodo> {
-    const todo = await this.todoService.getById(req.params.id, req.user);
+  getTodo(req: IAuthWithoutBodyRequest): Promise<ITodo> {
+    const todo = this.todoService.getById(req.params.id, req.user);
     return todo;
   }
 
-  async createTodo(req: IAuthAppRequest<INewTodo>): Promise<ITodo> {
-    const newTodo = await this.todoService.create(req.body, req.user);
+  createTodo(req: IAuthAppRequest<INewTodo>): Promise<ITodo> {
+    const newTodo = this.todoService.create(req.body, req.user);
     return newTodo;
   }
 
-  async updateTodo(
+  updateTodo(
     req: IAuthAppRequest<IUpdatedTodo>
   ): Promise<IUpdatedTodoResponse> {
-    const updatedTodo = await this.todoService.update(
+    const updatedTodo = this.todoService.update(
       req.params.id,
       req.body,
       req.user
@@ -45,10 +45,8 @@ export class TodoController {
     return updatedTodo;
   }
 
-  async deleteTodo(
-    req: IAuthWithoutBodyRequest
-  ): Promise<IDeletedTodoResponse> {
-    const deletedTodo = await this.todoService.delete(req.params.id, req.user);
+  deleteTodo(req: IAuthWithoutBodyRequest): Promise<IDeletedTodoResponse> {
+    const deletedTodo = this.todoService.delete(req.params.id, req.user);
     return deletedTodo;
   }
 }
